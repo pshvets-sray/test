@@ -1,0 +1,34 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: {{cookiecutter.service_name}}
+  namespace: argocd
+  annotations:
+    notifications.argoproj.io/subscribe.sync-operation-change.slack: prod-data-argocd-deployments
+spec:
+  project: {{cookiecutter.cicd_domain}}
+  source:
+    repoURL: https://chartmuseum.prod.esgbook.com
+    chart: {{cookiecutter.service_name}}
+    # Overwritten in CI, but we need a default here
+    targetRevision: 2.2.0
+    helm:
+      version: v3
+      parameters:
+        # Overwritten in CI, but we need a default here
+        - name: image.tag
+          value: master
+      valueFiles:
+        - values.yaml
+        - "values.prod.yaml"
+  destination:
+    server: https://kubernetes.default.svc
+    namespace:  {{cookiecutter.cicd_namespace}}
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - Validate=true
+      - CreateNamespace=false
+      - PruneLast=true

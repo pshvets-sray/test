@@ -1,0 +1,4 @@
+apiVersion: v1
+description: A Helm chart to deploy the {{cookiecutter.service_name}}.
+name: {{cookiecutter.service_name}}
+version: {{cookiecutter.version}}

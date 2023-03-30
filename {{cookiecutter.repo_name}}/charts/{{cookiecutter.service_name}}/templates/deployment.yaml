@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ '{{' }}.Chart.Name{{ '}}' }}
+  namespace: {{ '{{' }}.Values.namespace{{ '}}' }}
+  labels:
+    app: {{ '{{' }} .Chart.Name  {{ '}}' }}
+spec:
+  replicas: {{ '{{' }}.Values.app.replicas{{ '}}' }}
+  selector:
+    matchLabels:
+      app: {{ '{{' }}.Chart.Name{{ '}}' }}
+  template:
+    metadata:
+      namespace: {{ '{{' }}.Values.namespace{{ '}}' }}
+      labels:
+        app: {{ '{{' }}.Chart.Name{{ '}}' }}
+    spec:
+      terminationGracePeriodSeconds: {{ '{{' }}.Values.app.terminationGracePeriodSeconds{{ '}}' }}
+      restartPolicy: Always
+      serviceAccountName: {{ '{{' }} .Values.serviceAccount.ksa {{ '}}' }}
+      containers:
+        - name: {{ '{{' }}.Chart.Name{{ '}}' }}
+          image: "{{ '{{' }}.Values.image.host{{ '}}' }}/{{ '{{' }}.Values.image.name{{ '}}' }}:{{ '{{' }}.Values.image.tag{{ '}}' }}"
+          imagePullPolicy: {{ '{{' }}.Values.image.pullPolicy{{ '}}' }}
+          resources:
+            requests:
+              memory: {{ '{{' }}.Values.requests.memory {{ '}}' }}
+              cpu: {{ '{{' }}.Values.requests.cpu {{ '}}' }}
+            limits:
+              memory: {{ '{{' }}.Values.limits.memory {{ '}}' }}
+              cpu: {{ '{{' }}.Values.cpu.memory {{ '}}' }}
+          env:
+            - name: APP_NAME
+              value: "{{ '{{' }}.Chart.Name{{ '}}' }}"
+            - name: APP_VERSION
+              value: "{{ '{{' }}.Chart.Version{{ '}}' }}"
+            - name: GCP_PROJECT_ID
+              value: "{{ '{{' }}.Values.config.gcpProjectId{{ '}}' }}"

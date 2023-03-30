@@ -1,0 +1,26 @@
+namespace: {{cookiecutter.cicd_namespace}}
+
+image:
+  host: "europe-docker.pkg.dev/esgbook-develop/{{cookiecutter.cicd_domain}}"
+  name: "{{cookiecutter.repo_name}}"
+  tag: "develop"
+  pullPolicy: Always
+
+app:
+  replicas: 1
+  terminationGracePeriodSeconds: 3600
+
+serviceAccount:
+  ksa: {{cookiecutter.repo_name}}
+  gsa:
+    name: {{cookiecutter.repo_name}}
+
+config:
+  gcpProjectId: esgbook-develop
+
+requests:
+  memory: "400Mi"
+  cpu: "200m"
+limits:
+  memory: "800Mi"
+  cpu: "400m"

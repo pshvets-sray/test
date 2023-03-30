@@ -1,0 +1,9 @@
+image:
+  host: "europe-docker.pkg.dev/esgbook-prod/{{cookiecutter.cicd_domain}}" #  the .dev is consistent across environments
+  tag: "master"
+
+app:
+  replicas: 1
+
+config:
+  gcpProjectId: esgbook-prod

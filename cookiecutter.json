@@ -1,0 +1,14 @@
+{
+    "repo_name": "repo-name",
+    "service_name": "service_name",
+    "description": "TBD",
+    "version": "0.0.1",
+    "python_version": "3.11",
+    "max_line_length": "99",
+    "cicd_domain": "collect",
+    "cicd_namespace": "collect-cicd",
+    "github_organisation": "arabesque-sray",
+    "license": "ESG Book",
+    "author_name": "Data Technology Team",
+    "author_email": "data_technology@esgbook.com"
+}
